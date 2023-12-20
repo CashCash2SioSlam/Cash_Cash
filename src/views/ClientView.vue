@@ -1,6 +1,6 @@
 <template>
     <div class="client">
-      <h1 class="text-yellow-400">This is an client page</h1>
+      <h1 class="text-black">This is an client page</h1>
     </div>
   </template>
   
