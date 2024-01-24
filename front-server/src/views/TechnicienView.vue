@@ -13,7 +13,7 @@
 
 
 
-    <div class="mx-[60px] bg-[#3241B3] p-3 rounded-2xl overflow-scroll max-h-screen">
+    <div class="mx-[60px] bg-[#3241B3] p-3 rounded-2xl overflow-auto max-h-96">
       <div class="bg-[#EDEDED] py-[10px] rounded-lg x-2">
         <p class="ml-5">Eddie Cruze - 26/04/1984 - 0678542300 - Technicien - Eddie.cruze@cash_cash.com <i class="fa-solid fa-download"></i> voir plus</p>
       </div>
