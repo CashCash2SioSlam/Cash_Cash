@@ -13,7 +13,7 @@
 
 
 
-    <div class="mx-[60px] bg-[#3241B3]">
+    <div class="mx-[60px] bg-[#3241B3] p-3 rounded-2xl">
       <div class="bg-[#EDEDED] py-[10px] rounded-lg x-2">
         <p class="ml-5">Leroy Merlin - 26/04/2024 - <i class="fa-solid fa-download"></i> voir plus</p>
       </div>
