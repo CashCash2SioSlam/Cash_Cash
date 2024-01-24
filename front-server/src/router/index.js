@@ -7,11 +7,6 @@ import ConnexionView from '../views/ConnexionView';
 
 const routes = [
   { 
-    path: '/', 
-    name: 'client', 
-    component: ClientView 
-  },
-  { 
     path: '/client', 
     name: 'client', 
     component: ClientView 
