@@ -10,13 +10,7 @@
       </div>
 
       
-      <ul class="flex flex-col text-xl justify-start">   
-          <router-link to="/">
-            <li :class="{ 'text-white bg-[#3241B3]': $route.path === '/' }" class=" py-[6px] hover:text-white hover:bg-[#3241B3] w-full rounded-lg">
-              <p class="pl-8"><i class="fa-solid fa-grip"></i> Dashboard</p>
-            </li>
-          </router-link>
-        
+      <ul class="flex flex-col text-xl justify-start">
           <router-link to="/client">
             <li :class="{ 'text-white bg-[#3241B3]': $route.path === '/client' }" class="mt-1 py-[6px] hover:text-white hover:bg-[#3241B3] w-full rounded-lg">
               <p class="pl-8"><i class="fa-solid fa-user-group"></i> Clients</p>

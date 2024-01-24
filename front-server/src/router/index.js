@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
-import HomeView from '../views/HomeView.vue'
 import ClientView from '../views/ClientView.vue';
 import StatistiqueView from '../views/StatistiqueView.vue';
 import InterventionView from '../views/InterventionView.vue';
@@ -8,10 +6,10 @@ import TechnicienView from '../views/TechnicienView.vue';
 import ConnexionView from '../views/ConnexionView';
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
+  { 
+    path: '/', 
+    name: 'client', 
+    component: ClientView 
   },
   { 
     path: '/client', 
