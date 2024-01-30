@@ -14,18 +14,11 @@
 
 
     <div class="mx-[60px] bg-[#3241B3] p-3 rounded-2xl">
-      <div class="bg-[#EDEDED] py-[10px] rounded-lg x-2">
-        <p class="ml-5">Leroy Merlin - 26/04/2024 - <i class="fa-solid fa-download"></i> voir plus</p>
-      </div>
-      <div class="bg-[#EDEDED] py-[10px] rounded-lg mt-2">
-        <p class="ml-5">Carrefour - 27/04/2024 - <i class="fa-solid fa-download"></i> voir plus</p>
-      </div>
-      <div class="bg-[#EDEDED] py-[10px] rounded-lg mt-2">
-        <p class="ml-5">Leroy Merlin - 28/04/2024 - <i class="fa-solid fa-download"></i> voir plus</p>
-      </div>
-      <div class="bg-[#EDEDED] py-[10px] rounded-lg mt-2">
-        <p class="ml-5">Carrefour - contact@carrefour.fr - 29/04/2024 -  <i class="fa-solid fa-download"></i> voir plus</p>
-      </div>
+      <li v-for="intervention in interventions" :key="intervention.NuméroIntervention" class="list-none mt-3">
+          <div class="bg-[#EDEDED] py-[10px] rounded-lg x-2 list-none no-underline pl-2">
+            {{ intervention.DateVisite }} {{ intervention.HeureVisite }}
+          </div>
+        </li>
     </div>
 
 
@@ -33,6 +26,33 @@
 
   </div>
 </template>
+
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      interventions: [],
+    };
+  },
+  mounted() {
+    this.fetchInterventions();
+  },
+  methods: {
+    async fetchInterventions() {
+      try {
+        const response = await axios.get('http://localhost:3000/intervention');
+        this.interventions = response.data;
+      } catch (error) {
+        console.error('Error fetching interventions: ', error);
+      }
+    },
+  },
+};
+</script>
+
 
 <style>
 

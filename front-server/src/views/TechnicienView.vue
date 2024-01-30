@@ -5,34 +5,51 @@
 
 
 <div class="my-10 text-center">
-<form>
-  <input class="bg-[#EDEDED] rounded-xl px-3 py-2 mt-10" type="text" id="" placeholder="Recherche">   <!-- *v-model="searchQuery -->
-  <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-</form>
+  <form>
+    <input class="bg-[#EDEDED] rounded-xl px-3 py-2 mt-10" type="text" id="" placeholder="Recherche">   <!-- *v-model="searchQuery -->
+    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </form>
 </div>
 
 
-
-    <div class="mx-[60px] bg-[#3241B3] p-3 rounded-2xl overflow-auto max-h-96">
-      <div class="bg-[#EDEDED] py-[10px] rounded-lg x-2">
-        <p class="ml-5">Eddie Cruze - 26/04/1984 - 0678542300 - Technicien - Eddie.cruze@cash_cash.com <i class="fa-solid fa-download"></i> voir plus</p>
+      <div class="mx-[60px] bg-[#3241B3] p-3 rounded-2xl overflow-auto max-h-96">
+          <li v-for="technicien in techniciens" :key="technicien.Numérotechnicien" class="list-none mt-3">
+            <div class="bg-[#EDEDED] py-[10px] rounded-lg x-2 list-none no-underline pl-2">
+              {{ technicien.Prénom }} {{ technicien.Nom }} - {{ technicien.TelMobile }} - {{ technicien.Qualification }}
+            </div>
+          </li>
       </div>
-      <div class="bg-[#EDEDED] py-[10px] rounded-lg mt-2">
-        <p class="ml-5">Carle Thomson - 07/08/1992 - 0645952321 - Technicien - Carle.thomson@cash_cash.com <i class="fa-solid fa-download"></i> voir plus</p>
-      </div>
-      <div class="bg-[#EDEDED] py-[10px] rounded-lg mt-2">
-        <p class="ml-5">James Brimo - 20/02/1989 - 0678542300 - Technicien - James.brimo@cash_cash.com <i class="fa-solid fa-download"></i> voir plus</p>
-      </div>
-      <div class="bg-[#EDEDED] py-[10px] rounded-lg mt-2">
-        <p class="ml-5">Jack Torrent - 09/11/1995 - 0678002152 - Technicien - Jack.torrent@cash_cash.com <i class="fa-solid fa-download"></i> voir plus</p>
-      </div>
-    </div>
-
 
 </div>
+</div>
 
-  </div>
 </template>
+
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      techniciens: [],
+    };
+  },
+  mounted() {
+    this.fetchtechniciens();
+  },
+  methods: {
+    async fetchtechniciens() {
+      try {
+        const response = await axios.get('http://localhost:3000/technicien');
+        this.techniciens = response.data;
+      } catch (error) {
+        console.error('Error fetching technicien: ', error);
+      }
+    },
+  },
+};
+</script>
 
 <style>
 
