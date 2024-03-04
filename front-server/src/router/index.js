@@ -4,6 +4,7 @@ import StatistiqueView from '../views/StatistiqueView.vue';
 import InterventionView from '../views/InterventionView.vue';
 import TechnicienView from '../views/TechnicienView.vue';
 import ConnexionView from '../views/ConnexionView';
+import Detail_Inter from '../views/Detail_Inter';
 
 const routes = [
   { 
@@ -20,6 +21,11 @@ const routes = [
     path: '/intervention',
     name: 'intervention', 
     component: InterventionView 
+  },
+  {
+    path: '/Detail_Inter',
+    name: 'detail_inter',
+    component: Detail_Inter
   },
   { 
     path: '/technicien', 
