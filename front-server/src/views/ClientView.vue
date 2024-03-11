@@ -14,9 +14,8 @@
       <div class="mx-[60px]">
         <li v-for="client in clients" :key="client.Matricule" class="list-none mt-3">
           <div class="bg-[#EDEDED] py-[10px] rounded-lg x-2 list-none no-underline pl-2">
-            {{ client.NomClient }} - {{ client.Email }} - {{ client.TelClient }}
-            <button class="bg-green-500 p-1 rounded-lg text-white">Modifier</button>
-            <button class="bg-red-500 rounded-lg p-1 text-white">Supprimer</button>
+            {{ client.NuméroClient }} - {{ client.NomClient }} - {{ client.Email }} - {{ client.TelClient }}
+            <button class="bg-green-500 p-1 rounded-lg text-white" @click="voirPlus(client)">Voir plus</button>
           </div>
         </li>
       </div>
@@ -49,8 +48,16 @@ export default {
         console.error('Error fetching clients: ', error);
       }
     },
+    voirPlus(client) {
+      this.$router.push(`/client/${client.NuméroClient}`);
+    },
   },
 };
+
+
+
+
+
 </script>
 
 
