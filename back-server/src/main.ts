@@ -25,13 +25,40 @@ const pool = mariadb.createPool({
 app.get('/client', async (req, res) => {
   try {
     const connection = await pool.getConnection();
-    const rows = await connection.query('SELECT NomClient, Email, TelClient FROM client'); // Remplacez "votre_table" par le nom de votre table
+    const rows = await connection.query('SELECT NuméroClient,NomClient, Email, TelClient FROM client'); // Remplacez "votre_table" par le nom de votre table
     res.json(rows); // Vous pouvez personnaliser la réponse en fonction de vos besoins
   } catch (error) {
     console.error('Error connecting to database: ', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+app.get('/client', async (req, res) => {
+  try {
+    const connection = await pool.getConnection();
+    const rows = await connection.query('SELECT NuméroClient,NomClient, Email, TelClient FROM client'); // Remplacez "votre_table" par le nom de votre table
+    res.json(rows); // Vous pouvez personnaliser la réponse en fonction de vos besoins
+  } catch (error) {
+    console.error('Error connecting to database: ', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/client/:numeroClient', async (req, res) => {
+  try {
+    const connection = await pool.getConnection();
+    const numeroClient = req.params.numeroClient;
+    const [rows] = await connection.query('SELECT * FROM client WHERE NuméroClient = ?', [numeroClient]);
+    if (!rows || !rows.length) {
+      return res.status(404).json({ error: 'Client not found' });
+    }
+    res.json(rows[0]);
+  } catch (error) {
+    console.error('Error connecting to database: ', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 app.get('/intervention', async (req, res) => {
   try {
