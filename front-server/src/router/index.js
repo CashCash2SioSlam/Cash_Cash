@@ -5,6 +5,7 @@ import InterventionView from '../views/InterventionView.vue';
 import TechnicienView from '../views/TechnicienView.vue';
 import ConnexionView from '../views/ConnexionView';
 import Detail_Inter from '../views/Detail_Inter';
+import ClientDetailsView from '../views/ClientDetailsView'
 
 const routes = [
   { 
@@ -12,6 +13,13 @@ const routes = [
     name: 'client', 
     component: ClientView 
   },
+
+  { 
+    path: '/client/:numeroClient',
+    name: 'ClientDetails', 
+    component: ClientDetailsView
+  },
+
   { 
     path: '/statistique', 
     name: 'statistique',
