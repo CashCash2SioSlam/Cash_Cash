@@ -1,9 +1,7 @@
 <?php
 session_start();
 
-include_once('log.php'); // Connexion BDD identifiant
-
-$bdd = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+include_once('../../../back-server/connexion_bdd.php');
 
 // Initialize the email field variable
 $mail_value = isset($_POST['mail']) ? $_POST['mail'] : '';
@@ -13,32 +11,21 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
     $mail = $_POST['mail'];
     $mdp = $_POST['mdp'];
 
-    $q = $bdd->prepare('SELECT * FROM connect_helfy WHERE mail = :mail');
+    $q = $connPDO->prepare('SELECT * FROM connexion WHERE mail = :mail');
     $q->bindValue('mail', $mail);
     $q->execute();
     $res = $q->fetch(PDO::FETCH_ASSOC);
 
-    if ($res) {
+    if ($res) { 
         $passwordHash = $res['mdp'];
         if (password_verify($mdp, $passwordHash)) {
-            header('Location: mes-formations.php');
+            header('Location: ClientView.php');
             $_SESSION['mail'] = $mail;
             $_SESSION['nom'] = $res['nom'];
             $_SESSION['prenom'] = $res['prenom'];
-            $_SESSION['admin'] = $res['admin'];
         } else {
             $erreur_mdp = "Identifiant ou Mot de passe incorrect.";
         }
-
-        date_default_timezone_set('Europe/Paris');
-        $date = date("d/m/Y à H:i:s");
-        $nom = $_SESSION['nom'];
-        $prenom = $_SESSION['prenom'];
-        $mail = $_SESSION['mail'];
-        // Créer une chaîne avec les informations de connexion
-        $logEntry = "connecté le " . $date . ' | ' . $_SESSION['nom'] . ' ' . $_SESSION['prenom'] . " | " . $_SESSION['mail'] . PHP_EOL;
-        // Ajouter cette entrée au fichier de journal
-        file_put_contents('log.txt', $logEntry, FILE_APPEND);
     } else {
         $erreur_mail = "Identifiant ou Mot de passe incorrect.";
     }
@@ -60,7 +47,6 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
     <link rel="icon" type="image/png" sizes="32x32" href="resources/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="resources/img/favicon/favicon-16x16.png">
     <link rel="manifest" href="resources/img/favicon/site.webmanifest">
-    <?php include 'componant/analytics.php'; ?>
 </head>
 
 <body>

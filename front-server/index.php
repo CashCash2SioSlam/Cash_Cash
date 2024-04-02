@@ -40,13 +40,6 @@
                         <p class="pl-8"><i class="fa-solid fa-headset"></i> Technicien</p>
                     </a>
                 </li>
-
-                <!-- TEST pour le côté technicien -->
-                <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg">
-                    <a href="index.php?page=interventiontech">
-                        <p class="pl-8"><i class="fa-solid fa-truck"></i> Intervention Tech</p>
-                    </a>
-                </li>
             </ul>
         </section>
         <main class="content rounded-tl-2xl rounded-tr-2xl mr-12"> 
@@ -74,16 +67,7 @@
                                 break;
                                 case 'TechnicienDetailView':
                                     include 'src/views/Assistant/TechnicienDetailView.php';
-                                    break;
-
-                            // TEST Côté TECHNICIEN
-                            case 'interventiontech':
-                                include 'src/views/Technicien/InterventionView.php';
-                                break;
-                                case 'InterventionAffectView':
-                                    include 'src/views/Technicien/InterventionDetailView.php';
-                                    break; 
-                                    
+                                    break;                                    
                             default:
                                 echo '<div class="text-blue-400 rounded-2xl">Page introuvable</div>';
                                 break;

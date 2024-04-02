@@ -1,5 +1,5 @@
 <?php
-include_once 'C:\wamp64\www\cashcash_web\cashcash\back-server\src\db.statistique.php';
+include_once '../back-server/src/db.statistique.php';
 ?>
 
 <!-- Images alignées tout en haut -->

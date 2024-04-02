@@ -1,5 +1,5 @@
 <?php
-include_once 'C:\wamp64\www\cashcash_web\cashcash\back-server\src\db.technicien.php';
+include_once '../back-server/src/db.technicien.php';
 ?>
 <div class="client">
   <!-- Formulaire de recherche -->
