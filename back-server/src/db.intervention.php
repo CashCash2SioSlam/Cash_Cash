@@ -142,7 +142,7 @@ if(isset($_GET['intervention_id'])) {
     $technicians = getTechniciansInAgency($conn, $client_agency);
     
     if($intervention) {
-        include_once 'C:\wamp64\www\cashcash_web\cashcash\front-server\src\views\Assistant\InterventionDetailView.php';
+        include_once '../front-server/src/views/Assistant\InterventionDetailView.php';
     } else {
         echo "Intervention introuvable.";
     }
@@ -174,7 +174,7 @@ if(isset($_GET['intervention_id'])) {
                 $intervention = getInterventionById($conn, $intervention_id);
                 if ($intervention) {
                     echo '<div style="text-align: center; color: green;">Les modifications ont été enregistrées avec succès.</div>';
-                    include_once 'C:\wamp64\www\cashcash_web\cashcash\front-server\src\views\Assistant\InterventionDetailView.php';
+                    include_once '..\front-server\src\views\Assistant\InterventionDetailView.php';
                 } else {
                     echo '<div style="text-align: center; color: red;">Erreur : L\'intervention n\'existe pas.</div>';
                 }

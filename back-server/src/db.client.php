@@ -87,7 +87,7 @@ if(isset($_GET['client_id'])) {
     // Récupérer les informations du client
     $client = getClientById($conn, $client_id);
     if($client) {
-          include_once 'C:\wamp64\www\cashcash_web\cashcash\front-server\src\views\Assistant\ClientDetailView.php';
+          include_once '..\front-server\src\views\Assistant\ClientDetailView.php';
         } else {
             echo "Client introuvable.";
         }
@@ -138,7 +138,7 @@ if(isset($_GET['client_id'])) {
                     // Afficher les informations mises à jour
                     echo '<div style="text-align: center; color: green;">Les modifications ont été enregistrées avec succès.</div>';
                     // Inclure la vue pour afficher les détails du client
-                    include_once 'C:\wamp64\www\cashcash_web\cashcash\front-server\src\views\Assistant\ClientDetailView.php';
+                    include_once '..\front-server\src\views\Assistant\ClientDetailView.php';
                 } else {
                     echo '<div style="text-align: center; color: red;">Erreur : Le client n\'existe pas.</div>';
                 }

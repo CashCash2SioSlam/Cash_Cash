@@ -86,7 +86,7 @@ if(isset($_GET['technicien_id'])) {
     // Récupérer les informations du technicien
     $technicien = getTechnicienById($conn, $technicien_id);
     if($technicien) {
-        include_once 'C:\wamp64\www\cashcash_web\cashcash\front-server\src\views\Assistant\TechnicienDetailView.php';
+        include_once '..\front-server\src\views\Assistant\TechnicienDetailView.php';
     } else {
         echo "Technicien introuvable.";
     }
@@ -125,7 +125,7 @@ if(isset($_GET['technicien_id'])) {
                 $technicien = getTechnicienById($conn, $technicien_id);
                 if ($technicien) {
                     echo '<div style="text-align: center; color: green;">Les modifications ont été enregistrées avec succès.</div>';
-                    include_once 'C:\wamp64\www\cashcash_web\cashcash\front-server\src\views\Assistant\TechnicienDetailView.php';
+                    include_once '..\front-server\src\views\Assistant\TechnicienDetailView.php';
                 } else {
                     echo '<div style="text-align: center; color: red;">Erreur : Le technicien n\'existe pas.</div>';
                 }
