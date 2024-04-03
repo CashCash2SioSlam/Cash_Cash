@@ -19,7 +19,7 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
     if ($res) { 
         $passwordHash = $res['mdp'];
         if (password_verify($mdp, $passwordHash)) {
-            header('Location: ClientView.php');
+            header('Location: ../../index.php?page=client');
             $_SESSION['mail'] = $mail;
             $_SESSION['nom'] = $res['nom'];
             $_SESSION['prenom'] = $res['prenom'];
@@ -40,34 +40,37 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - Helfy</title>
-    <link rel="stylesheet" href="css/connexion_utilisateur.css">
+    <title>Connexion - CashCash</title>
+    <link rel="stylesheet" href="">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="apple-touch-icon" sizes="180x180" href="resources/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="resources/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="resources/img/favicon/favicon-16x16.png">
     <link rel="manifest" href="resources/img/favicon/site.webmanifest">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body>
 
     <!-- BLOCK FORM CONNEXION -->
-    <div id="block-connect">
+    <div class="bg-gray-100 max-w-lg mx-auto rounded-xl mt-20">
         <div>
-            <img src="resources/img/logo/logo.jpg" alt="logo  entreprise Helfy" class="img-logo-entreprise">
+            <img src="../assets/logo.png" alt="logo cashcash" class="mx-auto w-1/3 mb-10 pt-10">
         </div>
-        <div id="block-form">
-            <form id="text-connect" method="POST" action="">
-                <input type="email" name="mail" autocomplete="off" placeholder="Email" class="text-form" value="<?php echo $mail_value; ?>"><br>
-                <label>
-                    <input type="password" name="mdp" autocomplete="off" placeholder="Mot de passe" class="text-form"><br>
+        <div>
+            <form id="text-connect" class="mx-auto" method="POST" action="">
+                <div class="text-center mx-10">
+                    <input type="email" name="mail" autocomplete="off" placeholder="Email" class="rounded-lg w-full p-2" value="<?php echo $mail_value; ?>"><br>
+                    <label>
+                        <input type="password" name="mdp" autocomplete="off" placeholder="Mot de passe" class="rounded-lg mx-auto w-full mt-5 p-2"><br>
+                        <div class="password-icon">
+                            <i data-feather="eye"></i>
+                            <i data-feather="eye-off"></i>
+                        </div>
+                    </label>
+            </div>
 
-                    <div class="password-icon">
-                        <i data-feather="eye"></i>
-                        <i data-feather="eye-off"></i>
-                    </div>
 
-                </label>
 
                 <!-- ICON SCRIPT -->
                 <script src="https://unpkg.com/feather-icons"></script>
@@ -97,15 +100,18 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
                     <?php if (isset($erreur_mdp)) echo $erreur_mdp;
                     if (isset($erreur_mail)) echo $erreur_mail; ?>
                 </div>
-
-                <input type="submit" name="envoi" value="Se connecter" id="btn-send-form">
-
-                <p>Pas encore de compte ? <a href="inscription.php">Créer un compte</a></p><br>
+                
+                <div class="mx-auto text-center">
+                    <input type="submit" class="p-2 rounded-lg bg-white" name="envoi" value="Se connecter" id="btn-send-form">
+                </div>
+            
+                <p class="text-center mt-3">Pas encore de compte ? <a href="#">CrÃ©er un compte</a></p><br>
+            
+                
 
             </form>
         </div>
     </div>
 
 </body>
-
 </html>
