@@ -14,20 +14,11 @@ include_once '../back-server/src/db.technicien.php';
                 </button>
             </div>
         </div>
+
         <div class="grid grid-cols-2 gap-4">
             <div class="mb-1">
-                <label for="Nom" class="block text-sm font-medium text-gray-700">Nom :</label>
-                <input type="text" id="Nom" name="Nom" value="<?php echo $technicien['Nom']; ?>" placeholder="Exemple: Dupont" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full px-1 py-1 mt-2 shadow-sm sm:text-sm border-gray-300 rounded-md">
-            </div>
-            <div class="mb-1">
-                <label for="Prénom" class="block text-sm font-medium text-gray-700">Prénom :</label>
-                <input type="text" id="Prénom" name="Prénom" value="<?php echo $technicien['Prénom']; ?>" placeholder="Exemple: Jean " class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full px-1 py-1 mt-2 shadow-sm sm:text-sm border-gray-300 rounded-md">
-            </div>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div class="mb-1">
-                <label for="TelMobile" class="block text-sm font-medium text-gray-700">Téléphone du technicien :</label>
-                <input type="tel" id="TelMobile" name="TelMobile" value="<?php echo $technicien['TelMobile']; ?>" placeholder="Exemple: 0102030405" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full px-1 py-1 mt-2 shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <label for="TelephoneMobile" class="block text-sm font-medium text-gray-700">Téléphone du technicien :</label>
+                <input type="TelephoneMobile" id="TelephoneMobile" name="TelephoneMobile" value="<?php echo $technicien['TelephoneMobile']; ?>" placeholder="Exemple: 0102030405" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full px-1 py-1 mt-2 shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
             <div class="mb-1">
                 <label for="Qualification" class="block text-sm font-medium text-gray-700">Qualification :</label>

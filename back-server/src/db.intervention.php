@@ -32,12 +32,12 @@ function searchInterventions($conn, $date = null, $agent = null) {
 }
 
 function deleteIntervention($conn, $intervention_id) {
-    $sql = "DELETE FROM intervention WHERE NuméroIntervention = '$intervention_id'";
+    $sql = "DELETE FROM intervention WHERE NumeroIntervention = '$intervention_id'";
     return $conn->query($sql);
 }
 
 function getInterventionById($conn, $intervention_id) {
-    $sql = "SELECT intervention.*, controler.TempsPassé, controler.Commentaire FROM intervention inner join controler on intervention.NuméroIntervention=controler.NuméroIntervention WHERE intervention.NuméroIntervention = '$intervention_id'";
+    $sql = "SELECT intervention.*, controler.TempsPasse, controler.Commentaire FROM intervention inner join controler on intervention.NumeroIntervention=controler.NumeroIntervention WHERE intervention.NumeroIntervention = '$intervention_id'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         return $result->fetch_assoc();
@@ -47,7 +47,7 @@ function getInterventionById($conn, $intervention_id) {
 }
 
 function getClientAgency($conn, $client_id) {
-    $sql = "SELECT NumeroAgence FROM client WHERE NuméroClient = '$client_id'";
+    $sql = "SELECT NumeroAgence FROM client WHERE NumeroClient = '$client_id'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -58,7 +58,7 @@ function getClientAgency($conn, $client_id) {
 }
 
 function getTechniciansInAgency($conn, $agency) {
-    $sql = "SELECT Matricule, Nom, Prénom FROM technicien WHERE NumeroAgence = '$agency'";
+    $sql = "SELECT Matricule FROM technicien WHERE NumeroAgence = '$agency'";
     $result = $conn->query($sql);
     $technicians = array();
     if ($result->num_rows > 0) {
@@ -76,13 +76,13 @@ function updateIntervention($conn, $intervention_id, $new_data) {
     $sql = "UPDATE intervention SET ";
     foreach ($new_data as $key => $value) {
         // Exclure les champs 'TempsPassé' et 'Commentaire' de la mise à jour de l'intervention
-        if ($key !== 'TempsPassé' && $key !== 'Commentaire') {
+        if ($key !== 'TempsPasse' && $key !== 'Commentaire') {
             $sql .= "$key = '$value', ";
         }
     }
     // Supprimer la virgule et l'espace en trop à la fin de la requête SQL
     $sql = rtrim($sql, ', ');
-    $sql .= " WHERE NuméroIntervention = '$intervention_id'";
+    $sql .= " WHERE NumeroIntervention = '$intervention_id'";
     
     // Exécution de la requête SQL pour mettre à jour l'intervention
     $updateInterventionResult = $conn->query($sql);
@@ -90,11 +90,11 @@ function updateIntervention($conn, $intervention_id, $new_data) {
     // Si la mise à jour de l'intervention est réussie, mettre à jour les champs 'TempsPassé' et 'Commentaire' dans la table 'controler'
     if ($updateInterventionResult) {
         // Récupérer les nouvelles valeurs de 'TempsPassé' et 'Commentaire' depuis les données mises à jour
-        $tempsPasse = $new_data['TempsPassé'] ?? null;
+        $tempsPasse = $new_data['TempsPasse'] ?? null;
         $commentaire = $new_data['Commentaire'] ?? null;
         
         // Construction de la requête SQL pour mettre à jour 'TempsPassé' et 'Commentaire' dans la table 'controler'
-        $updateControlerSql = "UPDATE controler SET TempsPassé = '$tempsPasse', Commentaire = '$commentaire' WHERE NuméroIntervention = '$intervention_id'";
+        $updateControlerSql = "UPDATE controler SET TempsPasse = '$tempsPasse', Commentaire = '$commentaire' WHERE NumeroIntervention = '$intervention_id'";
 
         // Exécution de la requête SQL pour mettre à jour 'TempsPassé' et 'Commentaire' dans la table 'controler'
         $updateControlerResult = $conn->query($updateControlerSql);
@@ -136,7 +136,7 @@ if(isset($_GET['intervention_id'])) {
     $intervention = getInterventionById($conn, $intervention_id);
     
     // Récupération de l'agence du client associé à cette intervention
-    $client_agency = getClientAgency($conn, $intervention['NuméroClient']);
+    $client_agency = getClientAgency($conn, $intervention['NumeroClient']);
     
     // Récupération des techniciens dans l'agence du client
     $technicians = getTechniciansInAgency($conn, $client_agency);
@@ -159,11 +159,11 @@ if(isset($_GET['intervention_id'])) {
         if (!empty($_POST['Matricule'])) {
             $new_data['Matricule'] = $_POST['Matricule'];
         }
-        if (!empty($_POST['NuméroClient'])) {
-            $new_data['NuméroClient'] = $_POST['NuméroClient'];
+        if (!empty($_POST['NumeroClient'])) {
+            $new_data['NumeroClient'] = $_POST['NumeroClient'];
         }
-        if (!empty($_POST['TempsPassé'])) {
-            $new_data['TempsPassé'] = $_POST['TempsPassé'];
+        if (!empty($_POST['TempsPasse'])) {
+            $new_data['TempsPasse'] = $_POST['TempsPasse'];
         }
         if (!empty($_POST['Commentaire'])) {
             $new_data['Commentaire'] = $_POST['Commentaire'];

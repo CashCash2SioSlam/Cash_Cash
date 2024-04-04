@@ -5,16 +5,14 @@ include_once '..\back-server\connexion_bdd.php';
 function getStatisticsByTechnician($conn, $month, $year) {
     $sql = "SELECT 
                 technicien.Matricule, 
-                technicien.Prénom, 
-                technicien.Nom, 
-                COUNT(intervention.NuméroIntervention) AS NombreInterventions, 
-                SEC_TO_TIME(SUM(TIME_TO_SEC(controler.TempsPassé))) AS TotalTempsControle 
+                COUNT(intervention.NumeroIntervention) AS NombreInterventions, 
+                SEC_TO_TIME(SUM(TIME_TO_SEC(controler.TempsPasse))) AS TotalTempsControle 
             FROM 
                 technicien 
             LEFT JOIN 
                 intervention ON technicien.Matricule = intervention.Matricule 
             LEFT JOIN 
-                controler ON intervention.NuméroIntervention = controler.NuméroIntervention ";
+                controler ON intervention.NumeroIntervention = controler.NumeroIntervention ";
 
     // Ajoute les conditions WHERE en fonction des sélections de mois et d'année
     if ($month !== 0 && $year !== 0) {
@@ -46,7 +44,7 @@ function getTotalTechnicians($conn) {
 
 // Fonction pour récupérer le nombre total de contrats
 function getTotalContracts($conn) {
-    $sql = "SELECT COUNT(NuméroContrat) AS TotalContracts FROM contratmaintenance";
+    $sql = "SELECT COUNT(NumeroContrat) AS TotalContracts FROM contrat_de_maintenance";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     return $row['TotalContracts'];
@@ -54,7 +52,7 @@ function getTotalContracts($conn) {
 
 // Fonction pour récupérer le nombre total d'interventions
 function getTotalInterventions($conn) {
-    $sql = "SELECT COUNT(NuméroIntervention) AS TotalInterventions FROM intervention";
+    $sql = "SELECT COUNT(NumeroIntervention) AS TotalInterventions FROM intervention";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     return $row['TotalInterventions'];
@@ -62,7 +60,7 @@ function getTotalInterventions($conn) {
 
 // Fonction pour récupérer le nombre total de matériel
 function getTotalEquipment($conn) {
-    $sql = "SELECT COUNT(NuméroSérie) AS TotalEquipment FROM matériel";
+    $sql = "SELECT COUNT(NumeroSerie) AS TotalEquipment FROM materiel";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     return $row['TotalEquipment'];
@@ -81,11 +79,11 @@ if (isset($_POST['statistic_tech'])) {
 
 // Fonction pour récupérer les commentaires de chaque intervention
 function getCommentsForInterventions($conn) {
-    $sql = "SELECT intervention.NuméroIntervention,
+    $sql = "SELECT intervention.NumeroIntervention,
                    controler.Commentaire 
             FROM intervention 
             inner join controler 
-            on intervention.NuméroIntervention = controler.NuméroIntervention 
+            on intervention.NumeroIntervention = controler.NumeroIntervention 
             WHERE controler.Commentaire IS NOT NULL; ";
     $result = $conn->query($sql);
     $comments = array();

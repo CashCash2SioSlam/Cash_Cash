@@ -53,8 +53,6 @@ include_once '../back-server/src/db.statistique.php';
                     <thead>
                         <tr>
                             <th class="border px-4 py-2">Matricule</th>
-                            <th class="border px-4 py-2">Prénom</th>
-                            <th class="border px-4 py-2">Nom</th>
                             <th class="border px-4 py-2">Nombres d'interventions</th>
                             <th class="border px-4 py-2">Temps de contrôle</th>
                         </tr>
@@ -63,8 +61,6 @@ include_once '../back-server/src/db.statistique.php';
                         <?php foreach ($statistics as $statistic): ?>
                             <tr>
                                 <td class="border px-4 py-2"><?= $statistic['Matricule'] ?></td>
-                                <td class="border px-4 py-2"><?= $statistic['Prénom'] ?></td>
-                                <td class="border px-4 py-2"><?= $statistic['Nom'] ?></td>
                                 <td class="border px-4 py-2"><?= $statistic['NombreInterventions'] ?></td>
                                 <td class="border px-4 py-2"><?= $statistic['TotalTempsControle'] ?></td>
                             </tr>
@@ -83,7 +79,7 @@ include_once '../back-server/src/db.statistique.php';
             <?php if (!empty($comments)): ?>
                 <?php foreach ($comments as $comment): ?>
                     <div class="bg-white rounded-3xl p-3 mb-2">
-                        <p class="font-bold">Intervention <?= $comment['NuméroIntervention'] ?></p>
+                        <p class="font-bold">Intervention <?= $comment['NumeroIntervention'] ?></p>
                         <p><?= $comment['Commentaire'] ?></p>
                     </div>
                 <?php endforeach; ?>

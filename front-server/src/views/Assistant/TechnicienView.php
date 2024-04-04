@@ -15,7 +15,7 @@ include_once '../back-server/src/db.technicien.php';
         <?php foreach ($techniciens as $technicien): ?>
           <div class="bg-gray-100 rounded-xl px-3 py-2 mt-2 ml-10 flex justify-between">
             <div>
-              <?= $technicien['Nom'] ?> - <?= $technicien['TelMobile'] ?> - <?= $technicien['Qualification'] ?>
+              <?= $technicien['Matricule'] ?> - <?= $technicien['TelephoneMobile'] ?> - <?= $technicien['Qualification'] ?>
             </div>
             <div class="flex">
               <!-- Formulaire de modification -->          

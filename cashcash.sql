@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 03, 2024 at 09:05 AM
+-- Generation Time: Apr 04, 2024 at 02:14 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -30,41 +30,19 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `agence`;
 CREATE TABLE IF NOT EXISTS `agence` (
   `NumeroAgence` int NOT NULL,
-  `NomAgence` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `AdresseAgence` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `TelAgence` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NomAgence` varchar(50) DEFAULT NULL,
+  `AdresseAgence` varchar(100) DEFAULT NULL,
+  `TelAgence` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`NumeroAgence`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `agence`
 --
 
 INSERT INTO `agence` (`NumeroAgence`, `NomAgence`, `AdresseAgence`, `TelAgence`) VALUES
-(1, 'Agence1', '2 rue du potager', '1234567890'),
-(2, 'Agence2', '2 rue du moulin', '9876543210');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `appartenir`
---
-
-DROP TABLE IF EXISTS `appartenir`;
-CREATE TABLE IF NOT EXISTS `appartenir` (
-  `NuméroSérie` int NOT NULL,
-  `RefInterne` int NOT NULL,
-  PRIMARY KEY (`NuméroSérie`,`RefInterne`),
-  KEY `RefInterne` (`RefInterne`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `appartenir`
---
-
-INSERT INTO `appartenir` (`NuméroSérie`, `RefInterne`) VALUES
-(12345, 1),
-(67890, 2);
+(1, 'Agence Paris Centre', '5 Boulevard Haussmann, Paris', '01 23 45 67 89'),
+(2, 'Agence Lyon Sud', '8 Rue de la Liberté, Lyon', '04 56 78 90 12');
 
 -- --------------------------------------------------------
 
@@ -74,16 +52,17 @@ INSERT INTO `appartenir` (`NuméroSérie`, `RefInterne`) VALUES
 
 DROP TABLE IF EXISTS `assistanttel`;
 CREATE TABLE IF NOT EXISTS `assistanttel` (
-  `Matricule` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Matricule` int NOT NULL,
   PRIMARY KEY (`Matricule`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `assistanttel`
 --
 
 INSERT INTO `assistanttel` (`Matricule`) VALUES
-('E002');
+(1),
+(2);
 
 -- --------------------------------------------------------
 
@@ -93,31 +72,27 @@ INSERT INTO `assistanttel` (`Matricule`) VALUES
 
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
-  `NuméroClient` int NOT NULL,
-  `NomClient` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `RaisonSocial` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Siren` int DEFAULT NULL,
-  `CodeAPE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Adresse` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `TelClient` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Email` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `DuréeDeplacement` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `DistanceKM` decimal(15,2) DEFAULT NULL,
+  `NumeroClient` int NOT NULL,
+  `RaisonSociale` varchar(50) DEFAULT NULL,
+  `Siren` varchar(50) DEFAULT NULL,
+  `CodeAPE` varchar(50) DEFAULT NULL,
+  `Adresse` varchar(100) DEFAULT NULL,
+  `TelClient` varchar(50) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `DureeDeplacement` time DEFAULT NULL,
+  `DistanceKm` varchar(10) DEFAULT NULL,
   `NumeroAgence` int NOT NULL,
-  PRIMARY KEY (`NuméroClient`),
+  PRIMARY KEY (`NumeroClient`),
   KEY `NumeroAgence` (`NumeroAgence`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`NuméroClient`, `NomClient`, `RaisonSocial`, `Siren`, `CodeAPE`, `Adresse`, `TelClient`, `Email`, `DuréeDeplacement`, `DistanceKM`, `NumeroAgence`) VALUES
-(1, 'Leroy Merlin', 'SA', 123456789, 'APE123', '49 rue du kiosque', '0342385498', 'contact@leroymerlin.com', '2 jours', '50.50', 1),
-(2, 'Boulanger', 'SAS', 987654321, 'APE987', '521 rue des naufragés', '0321454679', 'contact@boulanger.fr', '1 jour', '30.75', 2),
-(3, 'Adeo', 'SARL', 67854, 'O56RT43', '135 Rue Sadi Carnot, 59790 Ronchin', '0320324078', ' contact@adeo.fr', '3 Heures', '86.00', 2),
-(4, 'Bricoman', 'SAS', 1067854, 'OS6RTX2', '133 Rue Sadi Carnot, 59790 Ronchin', '0320234678', 'contact@bricoman.fr', '5Heures', '85.90', 1),
-(5, 'La Poste', 'SPAS', 984434, 'O56UIOP', '130 Rue Sadi Carnot, 59790 Ronchin', '0320324678', 'contact@laposte.fr', '5-7 Heures', '85.30', 2);
+INSERT INTO `client` (`NumeroClient`, `RaisonSociale`, `Siren`, `CodeAPE`, `Adresse`, `TelClient`, `Email`, `DureeDeplacement`, `DistanceKm`, `NumeroAgence`) VALUES
+(1, 'Entreprise A', '123456789', '1234A', '10 Rue des Entrepreneurs, Paris', '01 23 45 67 88', 'contact@entrepriseA.com', '01:00:00', '5', 1),
+(2, 'Entreprise B', '987654321', '5678B', '20 Rue de la Croix Rousse, Lyon', '04 56 78 90 12', 'contact@entrepriseB.com', '00:45:00', '3', 2);
 
 -- --------------------------------------------------------
 
@@ -133,40 +108,42 @@ CREATE TABLE IF NOT EXISTS `connexion` (
   `mail` varchar(255) NOT NULL,
   `mdp` varchar(255) NOT NULL,
   `role` varchar(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `Matricule` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Matricule` (`Matricule`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `connexion`
 --
 
-INSERT INTO `connexion` (`id`, `prénom`, `nom`, `mail`, `mdp`, `role`) VALUES
-(1, 'Lucas', 'De Sainte Maresville', 'desaintem.lucas@gmail.com', '$2y$10$utBhEFhV0zP7tGR4G5TCn.hXqWYvc/qsH1XhkCvNgzN1OthIKAnG.', '1'),
-(2, 'Alex', 'Verhenne', 'alex.verhenne@cashcash.fr', '$2y$10$/PtmXajqeVi9LfNu7lk75.JyiDLYAagX5UgzKAAXzzYFhKXeH2b/S', '1');
+INSERT INTO `connexion` (`id`, `prénom`, `nom`, `mail`, `mdp`, `role`, `Matricule`) VALUES
+(1, 'Lucas', 'De Sainte Maresville', 'desaintem.lucas@gmail.com', '$2y$10$utBhEFhV0zP7tGR4G5TCn.hXqWYvc/qsH1XhkCvNgzN1OthIKAnG.', '1', 1),
+(2, 'Alex', 'Verhenne', 'alex.verhenne@cashcash.fr', '$2y$10$/PtmXajqeVi9LfNu7lk75.JyiDLYAagX5UgzKAAXzzYFhKXeH2b/S', '1', 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contratmaintenance`
+-- Table structure for table `contrat_de_maintenance`
 --
 
-DROP TABLE IF EXISTS `contratmaintenance`;
-CREATE TABLE IF NOT EXISTS `contratmaintenance` (
-  `NuméroContrat` int NOT NULL,
+DROP TABLE IF EXISTS `contrat_de_maintenance`;
+CREATE TABLE IF NOT EXISTS `contrat_de_maintenance` (
+  `NumeroContrat` int NOT NULL,
   `DateSignature` date DEFAULT NULL,
-  `DateEchéance` date DEFAULT NULL,
-  `NuméroClient` int NOT NULL,
-  PRIMARY KEY (`NuméroContrat`),
-  UNIQUE KEY `NuméroClient` (`NuméroClient`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `DateEcheance` date DEFAULT NULL,
+  `NumeroClient` int NOT NULL,
+  PRIMARY KEY (`NumeroContrat`),
+  UNIQUE KEY `NumeroClient` (`NumeroClient`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `contratmaintenance`
+-- Dumping data for table `contrat_de_maintenance`
 --
 
-INSERT INTO `contratmaintenance` (`NuméroContrat`, `DateSignature`, `DateEchéance`, `NuméroClient`) VALUES
-(1, '2022-01-15', '2023-01-15', 1),
-(2, '2022-02-20', '2023-02-20', 2);
+INSERT INTO `contrat_de_maintenance` (`NumeroContrat`, `DateSignature`, `DateEcheance`, `NumeroClient`) VALUES
+(1, '2020-01-01', '2021-01-01', 1),
+(2, '2021-02-01', '2022-02-01', 2);
 
 -- --------------------------------------------------------
 
@@ -176,26 +153,21 @@ INSERT INTO `contratmaintenance` (`NuméroContrat`, `DateSignature`, `DateEchéa
 
 DROP TABLE IF EXISTS `controler`;
 CREATE TABLE IF NOT EXISTS `controler` (
-  `NuméroSérie` int NOT NULL,
-  `NuméroIntervention` int NOT NULL,
-  `TempsPassé` time DEFAULT NULL,
-  `Commentaire` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`NuméroSérie`,`NuméroIntervention`),
-  KEY `NuméroIntervention` (`NuméroIntervention`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `NumeroSerie` int NOT NULL,
+  `NumeroIntervention` int NOT NULL,
+  `TempsPasse` time DEFAULT NULL,
+  `Commentaire` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`NumeroSerie`,`NumeroIntervention`),
+  KEY `NumeroIntervention` (`NumeroIntervention`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `controler`
 --
 
-INSERT INTO `controler` (`NuméroSérie`, `NuméroIntervention`, `TempsPassé`, `Commentaire`) VALUES
-(12345, 1, '02:00:00', 'Installation réussie'),
-(67890, 2, '01:30:00', 'Maintenance effectuée'),
-(1, 3, '22:12:00', 'Ras'),
-(2, 4, '02:11:00', 'Oui oui oui'),
-(3, 5, '01:10:00', 'TEST ok'),
-(4, 6, '10:10:00', 'TEST ok'),
-(5, 7, '01:55:00', 'TEST ok');
+INSERT INTO `controler` (`NumeroSerie`, `NumeroIntervention`, `TempsPasse`, `Commentaire`) VALUES
+(123456, 1, '01:30:00', 'Remplacement du disque dur'),
+(789012, 2, '02:00:00', 'Configuration du réseau');
 
 -- --------------------------------------------------------
 
@@ -205,21 +177,21 @@ INSERT INTO `controler` (`NuméroSérie`, `NuméroIntervention`, `TempsPassé`, 
 
 DROP TABLE IF EXISTS `employe`;
 CREATE TABLE IF NOT EXISTS `employe` (
-  `Matricule` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `NomEmploye` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PrenomEmploye` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `AdresseEmploye` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Matricule` int NOT NULL,
+  `NomEmploye` varchar(50) DEFAULT NULL,
+  `PrenomEmploye` varchar(50) DEFAULT NULL,
+  `Adresse` varchar(100) DEFAULT NULL,
   `DateEmbauche` date DEFAULT NULL,
   PRIMARY KEY (`Matricule`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `employe`
 --
 
-INSERT INTO `employe` (`Matricule`, `NomEmploye`, `PrenomEmploye`, `AdresseEmploye`, `DateEmbauche`) VALUES
-('E001', 'Smith', 'John', 'AdresseEmp1', '2022-01-01'),
-('E002', 'Doe', 'Jane', 'AdresseEmp2', '2022-02-01');
+INSERT INTO `employe` (`Matricule`, `NomEmploye`, `PrenomEmploye`, `Adresse`, `DateEmbauche`) VALUES
+(1, 'Dupont', 'Jean', '1 Rue de la République, Paris', '2020-05-15'),
+(2, 'Martin', 'Sophie', '12 Avenue des Lilas, Lyon', '2021-02-20');
 
 -- --------------------------------------------------------
 
@@ -229,55 +201,53 @@ INSERT INTO `employe` (`Matricule`, `NomEmploye`, `PrenomEmploye`, `AdresseEmplo
 
 DROP TABLE IF EXISTS `intervention`;
 CREATE TABLE IF NOT EXISTS `intervention` (
-  `NuméroIntervention` int NOT NULL,
+  `NumeroIntervention` int NOT NULL,
   `DateVisite` date DEFAULT NULL,
   `HeureVisite` time DEFAULT NULL,
-  `Matricule` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `NuméroClient` int NOT NULL,
-  PRIMARY KEY (`NuméroIntervention`),
+  `Matricule` int NOT NULL,
+  `NumeroClient` int DEFAULT NULL,
+  PRIMARY KEY (`NumeroIntervention`),
   KEY `Matricule` (`Matricule`),
-  KEY `NuméroClient` (`NuméroClient`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `fk_numero_client` (`NumeroClient`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `intervention`
 --
 
-INSERT INTO `intervention` (`NuméroIntervention`, `DateVisite`, `HeureVisite`, `Matricule`, `NuméroClient`) VALUES
-(1, '2022-03-01', '10:00:00', 'EX3XPA', 1),
-(2, '2022-03-02', '14:30:00', 'E001', 2),
-(3, '2024-01-10', '14:30:00', 'EX3XPV', 5),
-(5, '2024-01-08', '10:30:00', 'E001', 4),
-(6, '2024-01-06', '09:30:00', 'EXV30XPV4', 4),
-(7, '2024-01-12', '10:30:00', 'ESX3AIPA3', 2);
+INSERT INTO `intervention` (`NumeroIntervention`, `DateVisite`, `HeureVisite`, `Matricule`, `NumeroClient`) VALUES
+(1, '2022-01-10', '10:00:00', 3, 1),
+(2, '2022-02-15', '14:30:00', 4, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `matériel`
+-- Table structure for table `materiel`
 --
 
-DROP TABLE IF EXISTS `matériel`;
-CREATE TABLE IF NOT EXISTS `matériel` (
-  `NuméroSérie` int NOT NULL,
+DROP TABLE IF EXISTS `materiel`;
+CREATE TABLE IF NOT EXISTS `materiel` (
+  `NumeroSerie` int NOT NULL,
   `DateDeVente` date DEFAULT NULL,
   `DateInstallation` date DEFAULT NULL,
-  `PrixVente` decimal(15,2) DEFAULT NULL,
-  `Emplacement` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `NuméroClient` int NOT NULL,
-  `NuméroContrat` int NOT NULL,
-  PRIMARY KEY (`NuméroSérie`),
-  KEY `NuméroClient` (`NuméroClient`),
-  KEY `NuméroContrat` (`NuméroContrat`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `PrixDeVente` decimal(15,2) DEFAULT NULL,
+  `Emplacement` varchar(50) DEFAULT NULL,
+  `NumeroContrat` int DEFAULT NULL,
+  `NumeroClient` int NOT NULL,
+  `RefInterne` int NOT NULL,
+  PRIMARY KEY (`NumeroSerie`),
+  KEY `NumeroContrat` (`NumeroContrat`),
+  KEY `NumeroClient` (`NumeroClient`),
+  KEY `RefInterne` (`RefInterne`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `matériel`
+-- Dumping data for table `materiel`
 --
 
-INSERT INTO `matériel` (`NuméroSérie`, `DateDeVente`, `DateInstallation`, `PrixVente`, `Emplacement`, `NuméroClient`, `NuméroContrat`) VALUES
-(12345, '2022-01-20', '2022-01-25', '500.00', 'Emplacement1', 1, 1),
-(67890, '2022-02-15', '2022-02-18', '800.00', 'Emplacement2', 2, 2);
+INSERT INTO `materiel` (`NumeroSerie`, `DateDeVente`, `DateInstallation`, `PrixDeVente`, `Emplacement`, `NumeroContrat`, `NumeroClient`, `RefInterne`) VALUES
+(123456, '2020-02-01', '2020-02-02', '1500.00', 'Bureau A', 1, 1, 1),
+(789012, '2021-03-01', '2021-03-02', '500.00', 'Salle de réunion', 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -287,49 +257,44 @@ INSERT INTO `matériel` (`NuméroSérie`, `DateDeVente`, `DateInstallation`, `Pr
 
 DROP TABLE IF EXISTS `technicien`;
 CREATE TABLE IF NOT EXISTS `technicien` (
-  `Matricule` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Prénom` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Nom` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TelMobile` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Qualification` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Matricule` int NOT NULL,
+  `TelephoneMobile` varchar(20) DEFAULT NULL,
+  `Qualification` varchar(50) DEFAULT NULL,
   `DateObtention` date DEFAULT NULL,
   `NumeroAgence` int NOT NULL,
   PRIMARY KEY (`Matricule`),
   KEY `NumeroAgence` (`NumeroAgence`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `technicien`
 --
 
-INSERT INTO `technicien` (`Matricule`, `Prénom`, `Nom`, `TelMobile`, `Qualification`, `DateObtention`, `NumeroAgence`) VALUES
-('E001', 'Henri', 'Durant', '0788124572', 'Ingénieur', '2022-03-01', 1),
-('EX3XPV', 'Victore', 'Giat', '0603152598', 'Dev OPS', '2016-06-17', 2),
-('EX3XPA', 'Julien', 'Hezer', '0609176543', 'Technicien reseaux', '2017-08-18', 1),
-('EX3XP0', 'Charle', 'Attend', '0600174520', 'Lead Dev', '2022-06-22', 2),
-('EX3X1', 'Jean', 'Lopez', '0789002175', 'Assistant Dev Web (Back-end)', '2023-07-13', 2);
+INSERT INTO `technicien` (`Matricule`, `TelephoneMobile`, `Qualification`, `DateObtention`, `NumeroAgence`) VALUES
+(3, '0675144141', 'Technicien SAV', '2020-06-01', 1),
+(4, '07 98 76 54 32', 'Technicien Réseaux', '2021-01-10', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `type_matériel`
+-- Table structure for table `type_materiel`
 --
 
-DROP TABLE IF EXISTS `type_matériel`;
-CREATE TABLE IF NOT EXISTS `type_matériel` (
+DROP TABLE IF EXISTS `type_materiel`;
+CREATE TABLE IF NOT EXISTS `type_materiel` (
   `RefInterne` int NOT NULL,
-  `Libelle` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Libelle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`RefInterne`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `type_matériel`
+-- Dumping data for table `type_materiel`
 --
 
-INSERT INTO `type_matériel` (`RefInterne`, `Libelle`) VALUES
+INSERT INTO `type_materiel` (`RefInterne`, `Libelle`) VALUES
 (1, 'Ordinateur'),
 (2, 'Imprimante'),
-(3, 'Serveur');
+(3, 'Routeur');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

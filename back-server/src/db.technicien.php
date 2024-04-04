@@ -15,8 +15,8 @@ function getAllTechniciens($conn) {
 }
 
 // Fonction pour rechercher des techniciens par nom
-function searchTechniciens($conn, $technicien_nom) {
-    $sql = "SELECT * FROM technicien WHERE Nom LIKE '%$technicien_nom%'";
+function searchTechniciens($conn, $id_nom) {
+    $sql = "SELECT * FROM technicien WHERE Matricule LIKE '%$id_nom%'";
     $result = $conn->query($sql);
     $techniciens = array();
     if ($result->num_rows > 0) {
@@ -97,14 +97,8 @@ if(isset($_GET['technicien_id'])) {
         // Récupérer les données mises à jour depuis le formulaire
         $new_data = array();
         // Récupérer les valeurs des champs de formulaire et les ajouter ici
-        if (!empty($_POST['Nom'])) {
-            $new_data['Nom'] = $_POST['Nom'];
-        }
-        if (!empty($_POST['Prénom'])) {
-            $new_data['Prénom'] = $_POST['Prénom'];
-        }
-        if (!empty($_POST['TelMobile'])) {
-            $new_data['TelMobile'] = $_POST['TelMobile'];
+        if (!empty($_POST['TelephoneMobile'])) {
+            $new_data['TelephoneMobile'] = $_POST['TelephoneMobile'];
         }
         if (!empty($_POST['Qualification'])) {
             $new_data['Qualification'] = $_POST['Qualification'];

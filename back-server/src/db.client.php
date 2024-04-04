@@ -16,7 +16,7 @@ function getAllClients($conn) {
 
 // Fonction pour rechercher des clients par nom
 function searchClients($conn, $client_nom) {
-    $sql = "SELECT * FROM client WHERE NomClient LIKE '%$client_nom%'";
+    $sql = "SELECT * FROM client WHERE RaisonSociale LIKE '%$client_nom%'";
     $result = $conn->query($sql);
     $clients = array();
     if ($result->num_rows > 0) {
@@ -29,13 +29,13 @@ function searchClients($conn, $client_nom) {
 
 // Fonction pour supprimer un client
 function deleteClient($conn, $client_id) {
-    $sql = "DELETE FROM client WHERE NuméroClient = $client_id";
+    $sql = "DELETE FROM client WHERE NumeroClient = $client_id";
     return $conn->query($sql);
 }
 
 // Fonction pour récupérer les informations d'un client par son ID
 function getClientById($conn, $client_id) {
-    $sql = "SELECT * FROM client WHERE NuméroClient = $client_id";
+    $sql = "SELECT * FROM client WHERE NumeroClient = $client_id";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         return $result->fetch_assoc();
@@ -53,7 +53,7 @@ function updateClient($conn, $client_id, $new_data) {
     }
     // Supprimer la virgule et l'espace en trop à la fin de la requête SQL
     $sql = rtrim($sql, ', ');
-    $sql .= " WHERE NuméroClient = $client_id";
+    $sql .= " WHERE NumeroClient = $client_id";
     
     // Exécution de la requête SQL
     return $conn->query($sql);
@@ -99,11 +99,8 @@ if(isset($_GET['client_id'])) {
         // Récupérer les données mises à jour depuis le formulaire
         $new_data = array();
         // Récupérer les valeurs des champs de formulaire et les ajouter ici
-        if (!empty($_POST['NomClient'])) {
-            $new_data['NomClient'] = $_POST['NomClient'];
-        }
-        if (!empty($_POST['RaisonSocial'])) {
-            $new_data['RaisonSocial'] = $_POST['RaisonSocial'];
+        if (!empty($_POST['RaisonSociale'])) {
+            $new_data['RaisonSociale'] = $_POST['RaisonSociale'];
         }
         if (!empty($_POST['Siren'])) {
             $new_data['Siren'] = $_POST['Siren'];
@@ -120,11 +117,11 @@ if(isset($_GET['client_id'])) {
         if (!empty($_POST['Email'])) {
             $new_data['Email'] = $_POST['Email'];
         }
-        if (!empty($_POST['DuréeDeplacement'])) {
-            $new_data['DuréeDeplacement'] = $_POST['DuréeDeplacement'];
+        if (!empty($_POST['DureeDeplacement'])) {
+            $new_data['DureeDeplacement'] = $_POST['DureeDeplacement'];
         }
-        if (!empty($_POST['DistanceKM'])) {
-            $new_data['DistanceKM'] = $_POST['DistanceKM'];
+        if (!empty($_POST['DistanceKm'])) {
+            $new_data['DistanceKm'] = $_POST['DistanceKm'];
         }
     
         // Vérifier si des données ont été mises à jour
