@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 04 avr. 2024 à 20:04
--- Version du serveur : 8.2.0
--- Version de PHP : 8.2.13
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 07, 2024 at 11:08 AM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,63 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `cashcash`
+-- Database: `cashcash`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `GetClientInfo`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetClientInfo` ()   BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE NumeroClientVar INT;
+    DECLARE RaisonSocialeVar VARCHAR(50);
+    DECLARE SirenVar VARCHAR(50);
+    DECLARE CodeAPEVar VARCHAR(50);
+    DECLARE AdresseVar VARCHAR(100);
+    DECLARE TelClientVar VARCHAR(50);
+    DECLARE EmailVar VARCHAR(100);
+    DECLARE DureeDeplacementVar TIME;
+    DECLARE DistanceKmVar VARCHAR(10);
+    DECLARE NumeroAgenceVar INT;
+    
+    -- Déclaration du curseur
+    DECLARE client_cursor CURSOR FOR 
+        SELECT NumeroClient, RaisonSociale, Siren, CodeAPE, Adresse, TelClient, Email, DureeDeplacement, DistanceKm, NumeroAgence 
+        FROM client;
+    
+    -- Déclaration des handlers
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
+    -- Ouverture du curseur
+    OPEN client_cursor;
+    
+    -- Boucle pour récupérer les données du curseur
+    read_loop: LOOP
+        -- Lecture des valeurs du curseur dans les variables déclarées
+        FETCH client_cursor INTO NumeroClientVar, RaisonSocialeVar, SirenVar, CodeAPEVar, AdresseVar, TelClientVar, EmailVar, DureeDeplacementVar, DistanceKmVar, NumeroAgenceVar;
+        
+        -- Si aucune ligne trouvée, sortir de la boucle
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        
+        -- Afficher les informations du client
+        SELECT CONCAT('NumeroClient: ', NumeroClientVar, ', RaisonSociale: ', RaisonSocialeVar, ', Siren: ', SirenVar, ', CodeAPE: ', CodeAPEVar, ', Adresse: ', AdresseVar, ', TelClient: ', TelClientVar, ', Email: ', EmailVar, ', DureeDeplacement: ', DureeDeplacementVar, ', DistanceKm: ', DistanceKmVar, ', NumeroAgence: ', NumeroAgenceVar) AS ClientInfo;
+        
+    END LOOP;
+    
+    -- Fermeture du curseur
+    CLOSE client_cursor;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `agence`
+-- Table structure for table `agence`
 --
 
 DROP TABLE IF EXISTS `agence`;
@@ -37,20 +87,17 @@ CREATE TABLE IF NOT EXISTS `agence` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `agence`
+-- Dumping data for table `agence`
 --
 
 INSERT INTO `agence` (`NumeroAgence`, `NomAgence`, `AdresseAgence`, `TelAgence`) VALUES
 (1, 'Agence Paris Centre', '5 Boulevard Haussmann, Paris', '01 23 45 67 89'),
-(2, 'Agence Lyon Sud', '8 Rue de la Liberté, Lyon', '04 56 78 90 12'),
-(3, 'Agence Marseille Est', '15 Rue de Marseille, Marseille', '06 12 34 56 78'),
-(4, 'Agence Bordeaux Nord', '20 Avenue Victor Hugo, Bordeaux', '07 23 45 67 89'),
-(0, 'Agence Marseille Est', '15 Rue de Marseille, Marseille', '06 12 34 56 78');
+(2, 'Agence Lyon Sud', '8 Rue de la Liberté, Lyon', '04 56 78 90 12');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `assistanttel`
+-- Table structure for table `assistanttel`
 --
 
 DROP TABLE IF EXISTS `assistanttel`;
@@ -60,19 +107,17 @@ CREATE TABLE IF NOT EXISTS `assistanttel` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `assistanttel`
+-- Dumping data for table `assistanttel`
 --
 
 INSERT INTO `assistanttel` (`Matricule`) VALUES
 (1),
-(2),
-(3),
-(4);
+(2);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `client`
+-- Table structure for table `client`
 --
 
 DROP TABLE IF EXISTS `client`;
@@ -92,22 +137,17 @@ CREATE TABLE IF NOT EXISTS `client` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `client`
+-- Dumping data for table `client`
 --
 
 INSERT INTO `client` (`NumeroClient`, `RaisonSociale`, `Siren`, `CodeAPE`, `Adresse`, `TelClient`, `Email`, `DureeDeplacement`, `DistanceKm`, `NumeroAgence`) VALUES
 (1, 'Entreprise A', '123456789', '1234A', '10 Rue des Entrepreneurs, Paris', '01 23 45 67 88', 'contact@entrepriseA.com', '01:00:00', '5', 1),
-(2, 'Entreprise B', '987654321', '5678B', '20 Rue de la Croix Rousse, Lyon', '04 56 78 90 12', 'contact@entrepriseB.com', '00:45:00', '3', 2),
-(6, 'Entreprise E', '246802468', '1357E', '15 Rue de la Paix, Marseille', '01 23 45 67 89', 'contact@entrepriseE.com', '00:45:00', '10', 3),
-(3, 'Boulanger', '0102030405', 'A210Z', '40 rue du ponchet, Roncq', '01 20 50 40 60', 'Boulanger@contact.fr', '00:20:00', '5', 1),
-(4, 'Capgemini', '9865321470', 'ZZ141', '50 rue des motos, Lesquin', '05 06 08 07 40', 'capgemini@contact.fr', '00:25:00', '6', 1),
-(5, 'nauroto', '9866221470', 'GH212', '50 rue des moulins, Lille', '05 06 08 12 40', 'nauroto@contact.fr', '00:25:00', '6', 2),
-(7, 'Entreprise F', '135791357', '2468F', '20 Avenue du Lac, Bordeaux', '04 56 78 90 12', 'contact@entrepriseF.com', '01:30:00', '15', 4);
+(2, 'Entreprise B', '987654321', '5678B', '20 Rue de la Croix Rousse, Lyon', '04 56 78 90 12', 'contact@entrepriseB.com', '00:45:00', '3', 2);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `connexion`
+-- Table structure for table `connexion`
 --
 
 DROP TABLE IF EXISTS `connexion`;
@@ -124,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `connexion` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 --
--- Déchargement des données de la table `connexion`
+-- Dumping data for table `connexion`
 --
 
 INSERT INTO `connexion` (`id`, `prénom`, `nom`, `mail`, `mdp`, `role`, `Matricule`) VALUES
@@ -134,7 +174,7 @@ INSERT INTO `connexion` (`id`, `prénom`, `nom`, `mail`, `mdp`, `role`, `Matricu
 -- --------------------------------------------------------
 
 --
--- Structure de la table `contrat_de_maintenance`
+-- Table structure for table `contrat_de_maintenance`
 --
 
 DROP TABLE IF EXISTS `contrat_de_maintenance`;
@@ -148,25 +188,22 @@ CREATE TABLE IF NOT EXISTS `contrat_de_maintenance` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `contrat_de_maintenance`
+-- Dumping data for table `contrat_de_maintenance`
 --
 
 INSERT INTO `contrat_de_maintenance` (`NumeroContrat`, `DateSignature`, `DateEcheance`, `NumeroClient`) VALUES
-(1, '2020-01-01', '2021-01-01', 1),
-(2, '2021-02-01', '2022-02-01', 2),
-(3, '2024-04-01', '2024-04-06', 3),
-(4, '2024-04-01', '2024-04-19', 4),
-(5, '2024-04-01', '2024-04-06', 5);
+(1, '2020-01-01', '2025-01-01', 1),
+(2, '2021-02-01', '2025-02-01', 2);
 
 --
--- Déclencheurs `contrat_de_maintenance`
+-- Triggers `contrat_de_maintenance`
 --
-DROP TRIGGER IF EXISTS `before_insert_contrat_de_maintenance`;
+DROP TRIGGER IF EXISTS `before_contrat_insert`;
 DELIMITER $$
-CREATE TRIGGER `before_insert_contrat_de_maintenance` BEFORE INSERT ON `contrat_de_maintenance` FOR EACH ROW BEGIN
-    IF NEW.DateSignature >= NEW.DateEcheance THEN
+CREATE TRIGGER `before_contrat_insert` BEFORE INSERT ON `contrat_de_maintenance` FOR EACH ROW BEGIN
+    IF NEW.DateSignature > NEW.DateEcheance THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'La date de signature doit être antérieure à la date d'échéance du contrat de maintenance.';
+        SET MESSAGE_TEXT = 'La date de signature ne peut pas être postérieure à la date d'échéance';
     END IF;
 END
 $$
@@ -175,7 +212,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `controler`
+-- Table structure for table `controler`
 --
 
 DROP TABLE IF EXISTS `controler`;
@@ -189,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `controler` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `controler`
+-- Dumping data for table `controler`
 --
 
 INSERT INTO `controler` (`NumeroSerie`, `NumeroIntervention`, `TempsPasse`, `Commentaire`) VALUES
@@ -199,7 +236,7 @@ INSERT INTO `controler` (`NumeroSerie`, `NumeroIntervention`, `TempsPasse`, `Com
 -- --------------------------------------------------------
 
 --
--- Structure de la table `employe`
+-- Table structure for table `employe`
 --
 
 DROP TABLE IF EXISTS `employe`;
@@ -213,19 +250,17 @@ CREATE TABLE IF NOT EXISTS `employe` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `employe`
+-- Dumping data for table `employe`
 --
 
 INSERT INTO `employe` (`Matricule`, `NomEmploye`, `PrenomEmploye`, `Adresse`, `DateEmbauche`) VALUES
 (1, 'Dupont', 'Jean', '1 Rue de la République, Paris', '2020-05-15'),
-(2, 'Martin', 'Sophie', '12 Avenue des Lilas, Lyon', '2021-02-20'),
-(5, 'Garcia', 'Marcel', '5 Rue de la Liberté, Marseille', '2023-04-20'),
-(6, 'Lefort', 'Sylvie', '20 Avenue du Lac, Bordeaux', '2024-01-10');
+(2, 'Martin', 'Sophie', '12 Avenue des Lilas, Lyon', '2021-02-20');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `intervention`
+-- Table structure for table `intervention`
 --
 
 DROP TABLE IF EXISTS `intervention`;
@@ -241,38 +276,32 @@ CREATE TABLE IF NOT EXISTS `intervention` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `intervention`
+-- Dumping data for table `intervention`
 --
 
 INSERT INTO `intervention` (`NumeroIntervention`, `DateVisite`, `HeureVisite`, `Matricule`, `NumeroClient`) VALUES
 (1, '2022-01-10', '10:00:00', 3, 1),
-(2, '2022-02-15', '14:30:00', 4, 2),
-(4, '2022-04-25', '13:30:00', 6, 7),
-(3, '2022-03-20', '09:00:00', 5, 6);
+(2, '2022-02-15', '14:30:00', 4, 2);
 
 --
--- Déclencheurs `intervention`
+-- Triggers `intervention`
 --
-DROP TRIGGER IF EXISTS `before_insert_technicien_intervention`;
+DROP TRIGGER IF EXISTS `before_intervention_insert`;
 DELIMITER $$
-CREATE TRIGGER `before_insert_technicien_intervention` BEFORE INSERT ON `intervention` FOR EACH ROW BEGIN
-    DECLARE agence_client INT;
-    DECLARE agence_technicien INT;
-
-    -- Récupérer l'agence du client de l'intervention
-    SELECT NumeroAgence INTO agence_client
-    FROM client
-    WHERE NumeroClient = NEW.NumeroClient;
-
+CREATE TRIGGER `before_intervention_insert` BEFORE INSERT ON `intervention` FOR EACH ROW BEGIN
+    DECLARE client_agency INT;
+    DECLARE technician_agency INT;
+    
+    -- Récupérer l'agence du client pour cette intervention
+    SELECT NumeroAgence INTO client_agency FROM client WHERE NumeroClient = NEW.NumeroClient;
+    
     -- Récupérer l'agence du technicien
-    SELECT NumeroAgence INTO agence_technicien
-    FROM technicien
-    WHERE Matricule = NEW.Matricule;
-
+    SELECT NumeroAgence INTO technician_agency FROM technicien WHERE Matricule = NEW.Matricule;
+    
     -- Vérifier si les agences sont différentes
-    IF agence_client <> agence_technicien THEN
+    IF client_agency != technician_agency THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Impossible d'ajouter un technicien dont l'agence est différente de celle du client.';
+        SET MESSAGE_TEXT = 'Impossible d'ajouter un technicien dont l'agence est différente de celle du client sur cette intervention';
     END IF;
 END
 $$
@@ -281,7 +310,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `materiel`
+-- Table structure for table `materiel`
 --
 
 DROP TABLE IF EXISTS `materiel`;
@@ -301,19 +330,17 @@ CREATE TABLE IF NOT EXISTS `materiel` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `materiel`
+-- Dumping data for table `materiel`
 --
 
 INSERT INTO `materiel` (`NumeroSerie`, `DateDeVente`, `DateInstallation`, `PrixDeVente`, `Emplacement`, `NumeroContrat`, `NumeroClient`, `RefInterne`) VALUES
-(123456, '2020-02-01', '2020-02-02', 1500.00, 'Bureau A', 1, 1, 1),
-(789012, '2021-03-01', '2021-03-02', 500.00, 'Salle de réunion', 2, 2, 2),
-(246802, '2023-06-01', '2023-06-02', 2500.00, 'Bureau C', 8, 6, 1),
-(135791, '2023-07-01', '2023-07-02', 1500.00, 'Salle de conférence', 9, 7, 2);
+(123456, '2020-02-01', '2020-02-02', '1500.00', 'Bureau A', 1, 1, 1),
+(789012, '2021-03-01', '2021-03-02', '500.00', 'Salle de réunion', 2, 2, 2);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `technicien`
+-- Table structure for table `technicien`
 --
 
 DROP TABLE IF EXISTS `technicien`;
@@ -328,19 +355,17 @@ CREATE TABLE IF NOT EXISTS `technicien` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `technicien`
+-- Dumping data for table `technicien`
 --
 
 INSERT INTO `technicien` (`Matricule`, `TelephoneMobile`, `Qualification`, `DateObtention`, `NumeroAgence`) VALUES
 (3, '0675144141', 'Technicien SAV', '2020-06-01', 1),
-(4, '07 98 76 54 32', 'Technicien Réseaux', '2021-01-10', 2),
-(5, '06 78 90 12 34', 'Technicien Support', '2022-05-15', 3),
-(6, '07 89 01 23 45', 'Technicien Réseaux', '2023-02-20', 4);
+(4, '07 98 76 54 32', 'Technicien Réseaux', '2021-01-10', 2);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `type_materiel`
+-- Table structure for table `type_materiel`
 --
 
 DROP TABLE IF EXISTS `type_materiel`;
@@ -351,13 +376,24 @@ CREATE TABLE IF NOT EXISTS `type_materiel` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `type_materiel`
+-- Dumping data for table `type_materiel`
 --
 
 INSERT INTO `type_materiel` (`RefInterne`, `Libelle`) VALUES
 (1, 'Ordinateur'),
 (2, 'Imprimante'),
 (3, 'Routeur');
+
+DELIMITER $$
+--
+-- Events
+--
+DROP EVENT IF EXISTS `supprimer_contrats_expires`$$
+CREATE DEFINER=`root`@`localhost` EVENT `supprimer_contrats_expires` ON SCHEDULE EVERY 1 DAY STARTS '2024-04-07 12:21:42' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+    DELETE FROM contrat_de_maintenance WHERE DateEcheance < CURDATE();
+END$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
