@@ -2,8 +2,8 @@
 // Connexion à la base de données
 $servername = "localhost";
 $username = "root";
-$password = "";
-$dbname = "cashcash";
+$password = "root";
+$dbname = "cashhh";
 
 // Création de la connexion
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -1,3 +1,8 @@
+<?php 
+session_start()
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,11 +13,33 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/acad72453a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
     <title>CashCash</title>
 </head>
 <body>
     <div class="testtt">
-        <header class="header"></header>
+        <header class="header">
+
+
+            <div class="text-right mr-12 text-sm mt-2">
+                <div>
+                  <p><?php echo $_SESSION['prenom'] .' '. $_SESSION['nom']; ?></p>  
+                </div>
+                <div>
+                 <p>
+                    <?php 
+                        if($_SESSION['role'] === '1'){
+                            echo "Assistant";
+                        }
+                        else{
+                            echo "Technicien";
+                        }
+                    ?></p>
+                </div>
+            </div>
+            
+
+        </header>
 
         <section class="sidebar">
             <div class="flex items-center justify-center">
@@ -41,6 +68,9 @@
                     </a>
                 </li>
             </ul>
+            <div class="">
+                <a class="" href="src/modele/validation-deconnexion.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
         </section>
         <main class="content rounded-tl-2xl rounded-tr-2xl mr-12"> 
                 <?php

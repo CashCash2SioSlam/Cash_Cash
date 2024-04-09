@@ -23,6 +23,7 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
             $_SESSION['mail'] = $mail;
             $_SESSION['nom'] = $res['nom'];
             $_SESSION['prenom'] = $res['prenom'];
+            $_SESSION['role'] = $res['role'];
         } else {
             $erreur_mdp = "Identifiant ou Mot de passe incorrect.";
         }
