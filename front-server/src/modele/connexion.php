@@ -106,7 +106,7 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
                     <input type="submit" class="p-2 rounded-lg bg-white" name="envoi" value="Se connecter" id="btn-send-form">
                 </div>
             
-                <p class="text-center mt-3">Pas encore de compte ? <a href="#">CrÃ©er un compte</a></p><br>
+                
             
                 
 

@@ -1,5 +1,5 @@
 <?php 
-session_start()
+session_start();
 
 ?>
 
@@ -46,30 +46,61 @@ session_start()
                 <img src="src/assets/logo.png" class="w-28" alt="logo cashcash">
             </div>
 
-            <ul class="flex flex-col text-xl justify-start mx-3">
-                <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'statistique') ? 'bg-blue-800 text-white ' : ''; ?>">
-                    <a href="index.php?page=statistique">
-                        <p class="pl-8"><i class="fa-solid fa-chart-simple"></i> Dashboard</p>
-                    </a>
-                </li>
-                <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800  w-full rounded-lg <?php echo ($_GET['page'] === 'client') ? 'bg-blue-800 text-white ' : ''; ?>">
-                    <a href="index.php?page=client">
-                        <p class="pl-8"><i class="fa-solid fa-user-group"></i> Client</p>
-                    </a>
-                </li>
-                <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'intervention') ? 'bg-blue-800 text-white ' : ''; ?>">
-                    <a href="index.php?page=intervention">
-                        <p class="pl-8"><i class="fa-solid fa-truck"></i> Intervention</p>
-                    </a>
-                </li>
-                <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'technicien') ? 'bg-blue-800 text-white ' : ''; ?>">
-                    <a href="index.php?page=technicien">
-                        <p class="pl-8"><i class="fa-solid fa-headset"></i> Technicien</p>
-                    </a>
-                </li>
+            <ul class="flex flex-col text-xl justify-start mx-3 mt-10">
+
+                <?php 
+
+                if($_SESSION['role'] === '1'){ ?> 
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'statistique') ? 'bg-blue-800 text-white ' : ''; ?>">
+                        <a href="index.php?page=statistique">
+                            <p class="pl-8"><i class="fa-solid fa-chart-simple"></i> Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800  w-full rounded-lg <?php echo ($_GET['page'] === 'client') ? 'bg-blue-800 text-white ' : ''; ?>">
+                        <a href="index.php?page=client">
+                            <p class="pl-8"><i class="fa-solid fa-user-group"></i> Client</p>
+                        </a>
+                    </li>
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'intervention') ? 'bg-blue-800 text-white ' : ''; ?>">
+                        <a href="index.php?page=intervention">
+                            <p class="pl-8"><i class="fa-solid fa-truck"></i> Intervention</p>
+                        </a>
+                    </li>
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'technicien') ? 'bg-blue-800 text-white ' : ''; ?>">
+                        <a href="index.php?page=technicien">
+                            <p class="pl-8"><i class="fa-solid fa-headset"></i> Technicien</p>
+                        </a>
+                    </li>
+                <?php
+
+                }
+                else{?>
+
+
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'technicien') ? 'bg-blue-800 text-white ' : ''; ?>">
+                        <a href="index.php?page=technicien">
+                            <p class="pl-8"><i class="fa-solid fa-truck"></i> Intervention</p>
+                        </a>
+                    </li>
+
+                <?php
+                }
+
+                ?>
+
+
+
+               
+
+
+
+
+
+
+
             </ul>
-            <div class="">
-                <a class="" href="src/modele/validation-deconnexion.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+            <div class="absolute bottom-0 mb-10 ml-16 hover:bg-gray-400 py-2 px-3 rounded-lg">
+                <a class="mb-0" href="src/modele/validation-deconnexion.php"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
             </div>
         </section>
         <main class="content rounded-tl-2xl rounded-tr-2xl mr-12"> 
