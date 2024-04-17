@@ -51,22 +51,22 @@ session_start();
                 <?php 
 
                 if($_SESSION['role'] === '1'){ ?> 
-                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'statistique') ? 'bg-blue-800 text-white ' : ''; ?>">
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'assistantStatistique') ? 'bg-blue-800 text-white ' : ''; ?>">
                         <a href="index.php?page=assistantStatistique">
                             <p class="pl-8"><i class="fa-solid fa-chart-simple"></i> Dashboard</p>
                         </a>
                     </li>
-                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800  w-full rounded-lg <?php echo ($_GET['page'] === 'client') ? 'bg-blue-800 text-white ' : ''; ?>">
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800  w-full rounded-lg <?php echo ($_GET['page'] === 'assistantClient') ? 'bg-blue-800 text-white ' : ''; ?>">
                         <a href="index.php?page=assistantClient">
                             <p class="pl-8"><i class="fa-solid fa-user-group"></i> Client</p>
                         </a>
                     </li>
-                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'intervention') ? 'bg-blue-800 text-white ' : ''; ?>">
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'assistantIntervention') ? 'bg-blue-800 text-white ' : ''; ?>">
                         <a href="index.php?page=assistantIntervention">
                             <p class="pl-8"><i class="fa-solid fa-truck"></i> Intervention</p>
                         </a>
                     </li>
-                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'technicien') ? 'bg-blue-800 text-white ' : ''; ?>">
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'assistantTechnicien') ? 'bg-blue-800 text-white ' : ''; ?>">
                         <a href="index.php?page=assistantTechnicien">
                             <p class="pl-8"><i class="fa-solid fa-headset"></i> Technicien</p>
                         </a>
@@ -75,8 +75,8 @@ session_start();
 
                 }
                 else{?>
-                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'technicien') ? 'bg-blue-800 text-white ' : ''; ?>">
-                        <a href="index.php?role=assistant&page=technicienIntervention">
+                    <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'technicienIntervention') ? 'bg-blue-800 text-white ' : ''; ?>">
+                        <a href="index.php?page=technicienIntervention">
                             <p class="pl-8"><i class="fa-solid fa-truck"></i> Intervention</p>
                         </a>
                     </li>
@@ -84,17 +84,6 @@ session_start();
                 }
 
                 ?>
-
-
-
-               
-
-
-
-
-
-
-
             </ul>
             <div class="absolute bottom-0 mb-10 ml-16 hover:bg-gray-400 py-2 px-3 rounded-lg">
                 <a class="mb-0" href="src/modele/validation-deconnexion.php"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
@@ -130,8 +119,8 @@ session_start();
                             case 'technicienIntervention':
                                 include 'src/views/Technicien/InterventionView.php';
                                 break;
-                                case 'InterventionDetailView':
-                                    include 'src/views/Technicien/TechnicienDetailView.php';
+                                case 'technicienInterventionDetailView':
+                                    include 'src/views/Technicien/InterventionDetailView.php';
                                     break;  
                             default:
                                 echo '<div class="text-blue-400 rounded-2xl">Page introuvable</div>';

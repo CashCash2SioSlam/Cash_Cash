@@ -1,5 +1,5 @@
 <?php
-include_once '../back-server/src/db.intervention2.php';
+include_once '../back-server/src/db.interventionTech.php';
 ?>
 
 <div class="intervention-details bg-gray-100 p-6 ml-10 mr-10 mt-10 rounded-lg">
@@ -27,7 +27,7 @@ include_once '../back-server/src/db.intervention2.php';
             <div class="mb-1">
                 <label for="Matricule" class="block text-sm font-medium text-gray-700">Matricule :</label>
                 <select id="Matricule" name="Matricule" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full px-1 py-1 mt-2 shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    <?php foreach ($interventionsTechnicien as $interventionsTechnicien): ?>
+                    <?php foreach ($interventionsTechniciens as $interventionsTechnicien): ?>
                         <option value="<?php echo $interventionsTechnicien['Matricule']; ?>" <?php echo ($interventionsTechnicien['Matricule'] == $interventionsTechnicien['Matricule']) ? 'selected' : ''; ?>>
                             <?php echo $interventionsTechnicien['Matricule'] . ' - ' . $interventionsTechnicien['Nom'] . ' ' . $interventionsTechnicien['Prenom']; ?>
                         </option>
