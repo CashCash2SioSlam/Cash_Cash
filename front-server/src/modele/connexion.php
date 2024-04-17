@@ -37,7 +37,7 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
                 $_SESSION['role'] = '1';
             }
 
-            header('Location: ../../index.php?page=client');
+            header('Location: ../../index.php?page=assistantStatistique');
             $_SESSION['mail'] = $mail;
             $_SESSION['nom'] = $res['NomEmploye'];
             $_SESSION['prenom'] = $res['PrenomEmploye'];
