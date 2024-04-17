@@ -38,10 +38,10 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
             }
 
             header('Location: ../../index.php?page=assistantStatistique');
+            $_SESSION['Matricule'] = $res['Matricule'];
             $_SESSION['mail'] = $mail;
             $_SESSION['nom'] = $res['NomEmploye'];
             $_SESSION['prenom'] = $res['PrenomEmploye'];
-            $_SESSION['role'] = '1';
         } else {
             $erreur_mdp = "Identifiant ou Mot de passe incorrect.";
         }

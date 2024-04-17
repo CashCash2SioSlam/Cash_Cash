@@ -16,7 +16,7 @@ include_once '../back-server/src/db.intervention.php';
         <?php foreach ($interventions as $intervention): ?>
           <div class="bg-gray-100 rounded-xl px-3 py-2 mt-2 ml-10 flex justify-between">
             <div>
-              <?= $intervention['DateVisite'] ?> - <?= $intervention['HeureVisite'] ?> - <?= $intervention['Matricule'] ?> - <?= $intervention['NumeroClient'] ?> 	
+              <?= $intervention['DateVisite'] ?> - <?= $intervention['HeureVisite'] ?> - <?= $intervention['Matricule'] ?> - <?= $intervention['NumeroClient'] ?> <a href="#"><i class="fa-solid fa-file-arrow-down"></i></a>	
             </div>
             <div class="flex">
               <form method="get" action="index.php" class="mr-2">
