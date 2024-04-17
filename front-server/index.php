@@ -52,22 +52,22 @@ session_start();
 
                 if($_SESSION['role'] === '1'){ ?> 
                     <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'statistique') ? 'bg-blue-800 text-white ' : ''; ?>">
-                        <a href="index.php?page=statistique">
+                        <a href="index.php?page=assistantStatistique">
                             <p class="pl-8"><i class="fa-solid fa-chart-simple"></i> Dashboard</p>
                         </a>
                     </li>
                     <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800  w-full rounded-lg <?php echo ($_GET['page'] === 'client') ? 'bg-blue-800 text-white ' : ''; ?>">
-                        <a href="index.php?page=client">
+                        <a href="index.php?page=assistantClient">
                             <p class="pl-8"><i class="fa-solid fa-user-group"></i> Client</p>
                         </a>
                     </li>
                     <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'intervention') ? 'bg-blue-800 text-white ' : ''; ?>">
-                        <a href="index.php?page=intervention">
+                        <a href="index.php?page=assistantIntervention">
                             <p class="pl-8"><i class="fa-solid fa-truck"></i> Intervention</p>
                         </a>
                     </li>
                     <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'technicien') ? 'bg-blue-800 text-white ' : ''; ?>">
-                        <a href="index.php?page=technicien">
+                        <a href="index.php?page=assistantTechnicien">
                             <p class="pl-8"><i class="fa-solid fa-headset"></i> Technicien</p>
                         </a>
                     </li>
@@ -75,14 +75,11 @@ session_start();
 
                 }
                 else{?>
-
-
                     <li class="mt-1 py-1.5 hover:text-white hover:bg-blue-800 w-full rounded-lg <?php echo ($_GET['page'] === 'technicien') ? 'bg-blue-800 text-white ' : ''; ?>">
-                        <a href="index.php?page=technicien">
+                        <a href="index.php?role=assistant&page=technicienIntervention">
                             <p class="pl-8"><i class="fa-solid fa-truck"></i> Intervention</p>
                         </a>
                     </li>
-
                 <?php
                 }
 
@@ -107,28 +104,35 @@ session_start();
                 <?php
                     if (isset($_GET['page'])) {
                         $page = $_GET['page'];
+
                         switch ($page) {
-                            case 'client':
+                            case 'assistantClient':
                                 include 'src/views/Assistant/ClientView.php';
                                 break;
                                 case 'ClientDetailView':
                                     include 'src/views/Assistant/ClientDetailView.php';
                                     break;
-                            case 'statistique':
+                            case 'assistantStatistique':
                                 include 'src/views/Assistant/StatistiqueView.php';
                                 break;
-                            case 'intervention':
+                            case 'assistantIntervention':
                                 include 'src/views/Assistant/InterventionView.php';
                                 break;
                                 case 'InterventionDetailView':
                                     include 'src/views/Assistant/InterventionDetailView.php';
                                     break;
-                            case 'technicien':
+                            case 'assistantTechnicien':
                                 include 'src/views/Assistant/TechnicienView.php';
                                 break;
                                 case 'TechnicienDetailView':
                                     include 'src/views/Assistant/TechnicienDetailView.php';
-                                    break;                                    
+                                    break;
+                            case 'technicienIntervention':
+                                include 'src/views/Technicien/InterventionView.php';
+                                break;
+                                case 'InterventionDetailView':
+                                    include 'src/views/Technicien/TechnicienDetailView.php';
+                                    break;  
                             default:
                                 echo '<div class="text-blue-400 rounded-2xl">Page introuvable</div>';
                                 break;
