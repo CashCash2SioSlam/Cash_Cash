@@ -111,13 +111,13 @@ INSERT INTO type_materiel (RefInterne, Libelle) VALUES
 INSERT INTO Employe (Matricule, NomEmploye, PrenomEmploye, Adresse, DateEmbauche, mail, mdp) VALUES
 (1, 'Dupont', 'Jean', '1 Rue de la République, Paris', '2020-05-15','desaintem.lucas@gmail.com', '$2y$10$utBhEFhV0zP7tGR4G5TCn.hXqWYvc/qsH1XhkCvNgzN1OthIKAnG.'),
 (2, 'Martin', 'Sophie', '12 Avenue des Lilas, Lyon', '2021-02-20','diego@gmail.com', '$2y$10$/PtmXajqeVi9LfNu7lk75.JyiDLYAagX5UgzKAAXzzYFhKXeH2b/S'),
-(5, 'Garcia', 'Marcel', '5 Rue de la Liberté, Marseille', '2023-04-20','alex.verhenne@cashcash.fr', '$2y$10$/PtmXajqeVi9LfNu7lk75.JyiDLYAagX5UgzKAAXzzYFhKXeH2b/S'),
-(6, 'Lefort', 'Sylvie', '20 Avenue du Lac, Bordeaux', '2024-01-10','test@gmail.com', '$2y$10$/PtmXajqeVi9LfNu7lk75.JyiDLYAagX5UgzKAAXzzYFhKXeH2b/S');
+(3, 'Garcia', 'Marcel', '5 Rue de la Liberté, Marseille', '2023-04-20','alex.verhenne@cashcash.fr', '$2y$10$/PtmXajqeVi9LfNu7lk75.JyiDLYAagX5UgzKAAXzzYFhKXeH2b/S'),
+(4, 'Lefort', 'Sylvie', '20 Avenue du Lac, Bordeaux', '2024-01-10','test@gmail.com', '$2y$10$/PtmXajqeVi9LfNu7lk75.JyiDLYAagX5UgzKAAXzzYFhKXeH2b/S');
 
 -- Insertion des techniciens
 INSERT INTO Technicien (Matricule, TelephoneMobile, Qualification, DateObtention, NumeroAgence) VALUES
-(5, '06 75 14 41 41', 'Technicien SAV', '2020-06-01', 1),
-(6, '07 98 76 54 32', 'Technicien Réseaux', '2021-01-10', 2);
+(3, '06 75 14 41 41', 'Technicien SAV', '2020-06-01', 1),
+(4, '07 98 76 54 32', 'Technicien Réseaux', '2021-01-10', 2);
 
 -- Insertion des assistants
 INSERT INTO Assistant (Matricule) VALUES
