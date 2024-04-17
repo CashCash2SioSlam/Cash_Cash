@@ -11,7 +11,7 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
     $mail = $_POST['mail'];
     $mdp = $_POST['mdp'];
 
-    $q = $connPDO->prepare('SELECT * FROM connexion WHERE mail = :mail');
+    $q = $connPDO->prepare('SELECT * FROM employe WHERE mail = :mail');
     $q->bindValue('mail', $mail);
     $q->execute();
     $res = $q->fetch(PDO::FETCH_ASSOC);
@@ -19,11 +19,29 @@ if (!empty($_POST['mail']) && !empty($_POST['mdp'])) {
     if ($res) { 
         $passwordHash = $res['mdp'];
         if (password_verify($mdp, $passwordHash)) {
+            // Vérifier si l'employé est un technicien
+            $q_technicien = $connPDO->prepare('SELECT * FROM Technicien WHERE Matricule = :matricule');
+            $q_technicien->bindValue(':matricule', $res['Matricule']);
+            $q_technicien->execute();
+            $is_technicien = $q_technicien->fetch();
+            // Vérifier si l'employé est un assistant
+            $q_assistant = $connPDO->prepare('SELECT * FROM Assistant WHERE Matricule = :matricule');
+            $q_assistant->bindValue(':matricule', $res['Matricule']);
+            $q_assistant->execute();
+            $is_assistant = $q_assistant->fetch();
+
+            // Redirection en fonction du rôle
+            if ($is_technicien) {
+                $_SESSION['role'] = '0';
+            } else if ($is_assistant) {
+                $_SESSION['role'] = '1';
+            }
+
             header('Location: ../../index.php?page=client');
             $_SESSION['mail'] = $mail;
-            $_SESSION['nom'] = $res['nom'];
-            $_SESSION['prenom'] = $res['prenom'];
-            $_SESSION['role'] = $res['role'];
+            $_SESSION['nom'] = $res['NomEmploye'];
+            $_SESSION['prenom'] = $res['PrenomEmploye'];
+            $_SESSION['role'] = '1';
         } else {
             $erreur_mdp = "Identifiant ou Mot de passe incorrect.";
         }
