@@ -1,0 +1,15 @@
+Les assistants devront pouvoir rechercher une fiche client par rapport au numéro du
+client pour la visualiser ou la modifier.
+Les assistants pourront affecter les visites à un technicien (faisant partie de la même
+agence que le client).
+Les assistants pourront générer une fiche intervention au format PDF juste après
+l’affectation ou ultérieurement.
+Les assistants pourront consulter les interventions par date ou par agent. C’est à ce
+moment-là qu’ils pourront à nouveau éditer la fiche d’intervention.
+Les techniciens peuvent consulter les interventions qui leur sont affectées. Les plus
+proches de l’agence seront à traiter en priorité.
+Les techniciens peuvent valider les interventions en saisissant un commentaire et le
+temps passé.
+Les assistants ont un outil statistique qui leur permet de visualiser les informations
+suivantes par technicien : le nombre d’interventions réalisées, le nombre de kilomètres
+parcourus et la durée passée à contrôler le matériel, le tout pour un mois donné.
