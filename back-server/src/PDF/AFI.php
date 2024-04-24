@@ -1,11 +1,14 @@
-<?PHP
+<?php
 session_start();
 require("Lib_FPDF/fpdf.php");
+
+
 class PDF extends FPDF
 {
     // En-tête
     function Header()
     {
+        require_once ('../../connexion_bdd.php');
 
         $this->Image('../../../front-server/src/assets/logo.png', 8, 5, 50);
         $this->SetFont('Poppins', 'B', 15);
@@ -20,14 +23,7 @@ class PDF extends FPDF
         $assistant = mb_convert_encoding($_SESSION['prenom'] . $_SESSION['nom'], 'ISO-8859-1', 'UTF-8');
         $nb_intervention = mb_convert_encoding($_SESSION['prenom'] . $_SESSION['nom'], 'ISO-8859-1', 'UTF-8');
 
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "cashcash";
-
         $intervention_id = $_GET['intervention_id'];
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
 
         $sql = "SELECT i.DateVisite, i.HeureVisite, t.Matricule, t.TelephoneMobile, t.Qualification,
         c.Commentaire,
@@ -87,3 +83,6 @@ $pdf->AddPage();
 $pdf->SetFont('Times', '', 12);
 
 $pdf->output();
+
+
+?>
